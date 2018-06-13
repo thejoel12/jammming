@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TrackList from '../TrackList/TrackList';
+import SearchBar from '../SearchBar/SearchBar';
+
+
 
 class App extends Component {
   constructor(props) {
@@ -14,23 +18,24 @@ class App extends Component {
         album: ''
       }, {
         id: ''
-      }]
+      }],
+      playlistName : 'some string',
+      playlistTracks : [
+          {
+            name: ''
+          }, {
+            artist: ''
+          }, {
+            album: ''
+          }, {
+            id: ''
+          }
+      ]
     };
     this.searchResults = this.searchResults.bind(this);
 }
 
-  var playlistName = '',
-  var playlistTracks = [
-      {
-        name: ''
-      }, {
-        artist: ''
-      }, {
-        album: ''
-      }, {
-        id: ''
-      }
-  ];
+
 
   render() {
     return (
