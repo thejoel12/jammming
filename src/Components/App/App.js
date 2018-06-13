@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import TrackList from '../TrackList/TrackList';
 import SearchBar from '../SearchBar/SearchBar';
-
+import PlayList from '../Playlist/PlayList';
 
 
 class App extends Component {
