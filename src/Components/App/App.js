@@ -4,7 +4,7 @@ import './App.css';
 import TrackList from '../TrackList/TrackList';
 import SearchBar from '../SearchBar/SearchBar';
 import PlayList from '../Playlist/PlayList';
-
+import SearchResults from '../SearchResults/SearchResults';
 
 class App extends Component {
   constructor(props) {
@@ -33,6 +33,7 @@ class App extends Component {
       ]
     };
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
 }
 
   addTrack(track) {
@@ -41,15 +42,21 @@ class App extends Component {
     }
   };
 
+  removeTrack(track) {
+    if (this.state.playlistTracks.find(savedTrack => savedTrack.id !== track.id)) {
+      return;
+    }
+  }
+
   render() {
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar searchResults={this.state.searchResults}
-              onAdd={this.addTract} />
+          <SearchBar  />
           <div className="App-playlist">
-            <SearchBar />
+            <SearchResults searchResults={this.state.searchResults}
+                          onAdd={this.addTract} />
             <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>

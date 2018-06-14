@@ -4,10 +4,14 @@ import './track.css';
 class Track extends Component  {
   constructor(props) {
     super(props);
-    // Bind this.addTrack() to the current value of this in the constructor method.
     this.addTrack = this.addTrack.bind(this);
 }
+
+// addTrack() {
+//    this.props.onAdd(this.props.track);
+// }
   render() {
+    console.log(this.prop.track);
     return (
       <div className="Track">
       <div className="Track-information">
@@ -26,9 +30,7 @@ class Track extends Component  {
     return <a className="Track-action" onClick={this.addTrack}>+</a>;
   }
 
-  addTrack(event) {
-     this.props.onAdd(this.props.onAdd);
-  }
+
 
 }
 
