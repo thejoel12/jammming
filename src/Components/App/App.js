@@ -10,43 +10,30 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults : [{
-        name: ''
-      }, {
-        artist: ''
-      }, {
-        album: ''
-      }, {
-        id: ''
-      }],
+      searchResults : [
+        {name: 'Track Name' , artist: 'Artist Name', album: 'Album Name', id: 2}
+      ],
       playlistName : 'some string',
       playlistTracks : [
-          {
-            name: ''
-          }, {
-            artist: ''
-          }, {
-            album: ''
-          }, {
-            id: ''
-          }
+          {name: 'Track Name' , artist: 'Artist Name', album: 'Album Name', id: 2}
       ]
     };
     this.addTrack = this.addTrack.bind(this);
-    this.removeTrack = this.removeTrack.bind(this);
+    // this.removeTrack = this.removeTrack.bind(this);
 }
 
   addTrack(track) {
-    if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-      return;
-    }
+    // if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+    //   return;
+    // }
+    console.log('Add Track ran');
   };
 
-  removeTrack(track) {
-    if (this.state.playlistTracks.find(savedTrack => savedTrack.id !== track.id)) {
-      return;
-    }
-  }
+  // removeTrack(track) {
+  //   if (this.state.playlistTracks.find(savedTrack => savedTrack.id !== track.id)) {
+  //     return;
+  //   }
+  // }
 
   render() {
     return (
@@ -56,7 +43,7 @@ class App extends Component {
           <SearchBar  />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults}
-                          onAdd={this.addTract} />
+                          onAdd={this.addTrack} />
             <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>

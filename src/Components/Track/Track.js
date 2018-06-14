@@ -7,11 +7,10 @@ class Track extends Component  {
     this.addTrack = this.addTrack.bind(this);
 }
 
-// addTrack() {
-//    this.props.onAdd(this.props.track);
-// }
+addTrack() {
+   this.props.onAdd(this.props.track);
+}
   render() {
-    console.log(this.prop.track);
     return (
       <div className="Track">
       <div className="Track-information">
