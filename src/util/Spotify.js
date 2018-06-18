@@ -6,9 +6,9 @@ var expiresIn = window.location.href.match('/expires_in=([^&]*)/');
 
 const Spotify = {
   getAccessToken() {
-    if (!userAccessToken == null) {
+    if (userAccessToken) {
       return userAccessToken;
-    } else if ((!accessToken == null) && (!expiresIn == null)) {
+    } else if ((accessToken) && (expiresIn)) {
       accessToken = userAccessToken;
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
@@ -20,7 +20,7 @@ const Spotify = {
   search(track) {
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${track}`, {
       headers: {
-        Authorization: `Bearer ${userAccessToken}`
+        'Authorization': `Bearer ${userAccessToken}`
       }
     }).then(response => {
       return response.json();
