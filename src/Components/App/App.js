@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   savePlaylist() {
-    getAccessToken();
+    Spotify.getAccessToken();
     var trackURIs = [];
     trackURIs.push(this.state.playlistTracks);
     return trackURIs;
@@ -60,7 +60,7 @@ class App extends Component {
   }
 
   search() {
-    getAccessToken();
+    Spotify.getAccessToken();
     Spotify.search(this.search).then(track => {
       this.setState({searchResults: track });
     });

@@ -13,14 +13,15 @@ const Spotify = {
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
     } else {
-      window.location(`https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`);
+      window.location = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
     }
   },
 
   search(track) {
+    this.getAccessToken();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${track}`, {
       headers: {
-        'Authorization': `Bearer ${userAccessToken}`
+        Authorization: `Bearer ${userAccessToken}`
       }
     }).then(response => {
       return response.json();
@@ -48,7 +49,7 @@ const Spotify = {
       var userID;
       var playlistID;
       return fetch('https://api.spotify.com/v1/me', {
-        'Authorization': `Bearer ${userAccessToken}`
+        Authorization: `Bearer ${userAccessToken}`
       }).then(response => {
         return response.json();
       }).then(jsonResponse => {
