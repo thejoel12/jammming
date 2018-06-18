@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   savePlaylist() {
-    Spotify.getAccessToken();
+
     var trackURIs = [];
     trackURIs.push(this.state.playlistTracks);
     return trackURIs;

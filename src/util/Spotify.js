@@ -18,7 +18,6 @@ const Spotify = {
   },
 
   search(track) {
-    this.getAccessToken();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${track}`, {
       headers: {
         Authorization: `Bearer ${userAccessToken}`
@@ -27,14 +26,19 @@ const Spotify = {
       return response.json();
     }).then(jsonResponse => {
       if (jsonResponse.track) {
-        return jsonResponse.track.map(track => ({
-          id: track.id,
-          name: track.name,
-          artist: track.artits[0].name,
-          album: track.album.name,
-          uri: track.uri
-        }));
-      }
+        return jsonResponse.track.map(track => {
+          return (
+              {
+            id: track.id,
+            name: track.name,
+            artist: track.artits[0].name,
+            album: track.album.name,
+            uri: track.uri
+          }) }
+      );
+    } else {
+      return [];
+    }
     });
   },
 
