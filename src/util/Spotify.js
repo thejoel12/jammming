@@ -8,17 +8,17 @@ const Spotify = {
   getAccessToken() {
     if (!userAccessToken == null) {
       return userAccessToken;
-    } else if (!(accessToken == null) && !(expiresIn == null)) {
+    } else if ((!accessToken == null) && (!expiresIn == null)) {
       accessToken = userAccessToken;
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
     } else {
       window.location(`https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`);
     }
-  }
+  },
 
   search(track) {
-    return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+    return fetch(`https://api.spotify.com/v1/search?type=track&q=${track}`, {
       headers: {
         Authorization: `Bearer ${userAccessToken}`
       }
@@ -35,19 +35,20 @@ const Spotify = {
         }));
       }
     });
-  }
+  },
 
   savePlaylist(nameOfPlaylist, trackURIs) {
     if ((nameOfPlaylist == null) && (trackURIs == null)) {
       return;
     } else {
-      userAccessToken = accessToken;
-      headersVar = {
-        Authorization: `Bearer ${userAccessToken}`
-      };
+      var userAccessToken = accessToken;
+      // var headersVar = {
+      //   Authorization: `Bearer ${userAccessToken}`
+      // };
       var userID;
+      var playlistID;
       return fetch('https://api.spotify.com/v1/me', {
-        headers: headersVar
+        'Authorization': `Bearer ${userAccessToken}`
       }).then(response => {
         return response.json();
       }).then(jsonResponse => {
@@ -56,16 +57,16 @@ const Spotify = {
         }
       });
       return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-        method: POST,
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${userAccessToken}`,
-          Content - Type: application / json
+          'Content-type': 'application/json'
         },
         body: {
           name: nameOfPlaylist
         }
       }).then(response => {
-        return reponse.json();
+        return response.json();
       }).then(jsonResponse => {
         if (jsonResponse.id) {
           return jsonResponse.id = playlistID;

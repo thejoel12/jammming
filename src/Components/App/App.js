@@ -7,6 +7,7 @@ import PlayList from '../Playlist/PlayList';
 import SearchResults from '../SearchResults/SearchResults';
 import Spotify from '../../util/Spotify';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -52,13 +53,13 @@ class App extends Component {
     var trackURIs = [];
     trackURIs.push(this.state.playlistTracks);
     return trackURIs;
-    Spotify.savePlaylist({ playlistName: name}, trackURIs).then(() => {
+    Spotify.savePlaylist({ playlistname: this.state.playlistName}, trackURIs).then(() => {
       this.setState({ playlistName: 'New Playlist'}, {playlistTracks: [] });
     })
   }
 
-  search(term) {
-    Spotify.search(term).then(track => {
+  search() {
+    Spotify.search(this.search).then(track => {
       this.setState({searchResults: track });
     });
   }

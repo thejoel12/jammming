@@ -10,11 +10,11 @@ class SearchBar extends Component {
   }
 
   search() {
-    this.props.onSearch(this.props.search)
+    this.props.onSearch(this.props.search);
   }
 
   handleTermChange(event) {
-    this.props.onSearch(event.target.value)
+    this.props.onSearch(event.target.value);
   }
 
   render (){
