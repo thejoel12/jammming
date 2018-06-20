@@ -14,7 +14,7 @@ const Spotify = {
     if ((accessToken) && (expiresIn)) {
       userAccessToken = accessToken[1];
       const expirationInt = Number(expiresIn[1]);
-
+      return userAccessToken;
       window.setTimeout(() => accessToken = '', expirationInt * 1000);
       window.history.pushState('Access Token', null, '/');
     } else {
@@ -27,17 +27,18 @@ const Spotify = {
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${track}`, {
       headers: {
         // method: 'GET',
-        Authorization: `Bearer ${userAccessToken}`
+        Authorization: `Bearer ${userAccessToken}`,
+
       }
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
-      if (jsonResponse.track) {
-        return jsonResponse.track.map(track => {
+      if (jsonResponse.tracks) {
+        return jsonResponse.tracks.items.map(track => {
           return ({
             id: track.id,
             name: track.name,
-            artist: track.artist[0].name,
+            artist: track.artists[0].name,
             album: track.album.name,
             uri: track.uri
           })
