@@ -1,16 +1,21 @@
 var userAccessToken;
 const clientID = 'd60c5ab4ce4744808d2f6e525886e5d0';
 const redirectURL = "http://localhost:3000/";
-var accessToken = window.location.href.match('/access_token=([^&]*)/');
-var expiresIn = window.location.href.match('/expires_in=([^&]*)/');
+
 
 const Spotify = {
   getAccessToken() {
     if (userAccessToken) {
       return userAccessToken;
-    } else if ((accessToken) && (expiresIn)) {
-      accessToken = userAccessToken;
-      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+    }
+    var accessToken = window.location.href.match(/access_token=([^&]*)/);
+    var expiresIn = window.location.href.match(/expires_in=([^&]*)/);
+
+    if ((accessToken) && (expiresIn)) {
+      userAccessToken = accessToken[1];
+      const expirationInt = Number(expiresIn[1]);
+
+      window.setTimeout(() => accessToken = '', expirationInt * 1000);
       window.history.pushState('Access Token', null, '/');
     } else {
       window.location = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
@@ -18,9 +23,10 @@ const Spotify = {
   },
 
   search(track) {
+    Spotify.getAccessToken();
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${track}`, {
       headers: {
-        method: 'GET',
+        // method: 'GET',
         Authorization: `Bearer ${userAccessToken}`
       }
     }).then(response => {
@@ -31,7 +37,7 @@ const Spotify = {
           return ({
             id: track.id,
             name: track.name,
-            artist: track.artits[0].name,
+            artist: track.artist[0].name,
             album: track.album.name,
             uri: track.uri
           })
@@ -43,10 +49,11 @@ const Spotify = {
   },
 
   savePlaylist(nameOfPlaylist, trackURIs) {
+    Spotify.getAccessToken();
     if ((nameOfPlaylist == null) && (trackURIs == null)) {
       return;
     } else {
-      var userAccessToken = accessToken;
+      // var userAccessToken = accessToken;
       var userID;
       var playlistID;
       return fetch('https://api.spotify.com/v1/me', {

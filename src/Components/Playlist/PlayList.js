@@ -8,11 +8,12 @@ class PlayList extends Component  {
   constructor(props) {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
-}
+  }
 
   handleNameChange(event) {
     this.props.onNameChange(event.target.value)
   }
+  
   render() {
     return (
       <div className="Playlist">

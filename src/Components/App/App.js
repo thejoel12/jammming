@@ -50,7 +50,6 @@ class App extends Component {
   }
 
   savePlaylist() {
-
     var trackURIs = [];
     trackURIs.push(this.state.playlistTracks);
     return trackURIs;
@@ -60,7 +59,6 @@ class App extends Component {
   }
 
   search() {
-    Spotify.getAccessToken();
     Spotify.search(this.search).then(track => {
       this.setState({searchResults: track });
     });
@@ -78,7 +76,7 @@ class App extends Component {
                           onRemove={this.removeTrack} />
                         <PlayList playlistName={this.state.playlistName}
                           playlistTracks={this.state.playlistTracks}
-                          onNameChange={this.state.updatePlaylistName}
+                          onNameChange={this.updatePlaylistName}
                           onAdd={this.addTrack}
                           onRemove={this.removeTrack}
                           onSave={this.savePlaylist}/>
