@@ -65,23 +65,23 @@ const Spotify = {
                 Authorization: `Bearer ${userAccessToken}`
               },
               body: JSON.stringify({
-                name:
+                name: nameOfPlaylist
               })
             })
           })
             .then(response => response.json())
             .then(jsonResponse => playlistID = jsonResponse.id)
             .then(() => {
-                fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
+                fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
                   method: 'POST',
                   headers: {
                     Authorization: `Bearer ${userAccessToken}`
                   },
                   body: JSON.stringify({
-                    uris: trackUris
+                    uris: trackURIs
                   })
-                });
-            )
+                })
+            })
   } //end of else
 }
 
