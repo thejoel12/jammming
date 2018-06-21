@@ -29,9 +29,9 @@ removeTrack() {
   }
   renderAction() {
     if (this.props.isRemoval) {
-      return <span className="Track-action" onClick={this.removeTrack}>-</span>
+      return <a className="Track-action" onClick={this.removeTrack}>-</a>
     }
-    return <span className="Track-action" onClick={this.addTrack}>+</span>;
+    return <a className="Track-action" onClick={this.addTrack}>+</a>;
   }
 
 
