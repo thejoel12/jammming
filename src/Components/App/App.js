@@ -31,13 +31,11 @@ class App extends Component {
 
   addTrack(track) {
     if (!this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-      const updatedPlaylistTracks = [
-        this.state.playlistTracks,
-        track
-      ];
-      this.setState({ playlistTracks: updatedPlaylistTracks });
+      this.state.playlistTracks.push(track);
+      this.setState({
+        playlistTracks: this.state.playlistTracks
+      })
     }
-    console.log('Add Track ran');
   }
 
   removeTrack(track) {
@@ -49,11 +47,12 @@ class App extends Component {
     this.setState({ playlistName: name});
   }
 
+
+
   savePlaylist() {
-    var trackURIs = [];
-    trackURIs.push(this.state.playlistTracks);
-    Spotify.savePlaylist({ playlistname: this.state.playlistName}, trackURIs).then(() => {
-      this.setState({ playlistName: 'New Playlist'}, {playlistTracks: [] });
+    let trackURIs = Array.from(this.state.playlistTracks, track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+      this.setState({ playlistName: 'New Playlist', playlistTracks: [] });
     })
     return trackURIs;
   }

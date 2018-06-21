@@ -20,7 +20,7 @@ removeTrack() {
       <div className="Track">
       <div className="Track-information">
         <h3>{this.props.track.name}</h3>
-        <p>{this.props.track.artist} | {this.props.track.album}</p>
+        <p>{this.props.track.artist} {this.props.track.album}</p>
       </div>
       <a className="Track-action"
           onClick={this.addTrack} >{this.renderAction()}</a>
@@ -29,9 +29,9 @@ removeTrack() {
   }
   renderAction() {
     if (this.props.isRemoval) {
-      return <a className="Track-action" onClick={this.removeTrack}>-</a>
+      return <span className="Track-action" onClick={this.removeTrack}>-</span>
     }
-    return <a className="Track-action" onClick={this.addTrack}>+</a>;
+    return <span className="Track-action" onClick={this.addTrack}>+</span>;
   }
 
 

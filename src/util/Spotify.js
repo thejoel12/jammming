@@ -58,7 +58,9 @@ const Spotify = {
       var userID;
       var playlistID;
       return fetch('https://api.spotify.com/v1/me', {
-        Authorization: `Bearer ${userAccessToken}`
+        headers: {
+          Authorization: `Bearer ${userAccessToken}`,
+        }
       }).then(response => {
         return response.json();
       }).then(jsonResponse => {
@@ -67,10 +69,11 @@ const Spotify = {
         }
       })
       .then(() => {
-          fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+          return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
               method: 'POST',
               headers: {
-                Authorization: `Bearer ${userAccessToken}`
+                Authorization: `Bearer ${userAccessToken}`,
+                'Content-Type': 'application/json'
               },
               body: JSON.stringify({
                 name: nameOfPlaylist
@@ -82,10 +85,11 @@ const Spotify = {
            })
             .then(jsonResponse => playlistID = jsonResponse.id)
             .then(() => {
-                fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+                return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
                   method: 'POST',
                   headers: {
-                    Authorization: `Bearer ${userAccessToken}`
+                    Authorization: `Bearer ${userAccessToken}`,
+                    'Content-Type': 'application/json'
                   },
                   body: JSON.stringify({
                     uris: trackURIs
