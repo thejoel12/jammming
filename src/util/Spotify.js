@@ -59,13 +59,14 @@ const Spotify = {
       var playlistID;
       return fetch('https://api.spotify.com/v1/me', {
         headers: {
-          Authorization: `Bearer ${userAccessToken}`,
+          Authorization: `Bearer ${userAccessToken}`
         }
       }).then(response => {
         return response.json();
       }).then(jsonResponse => {
         if (jsonResponse.id) {
-          return jsonResponse.id = userID;
+
+          return userID = jsonResponse.id;
         }
       })
       .then(() => {
